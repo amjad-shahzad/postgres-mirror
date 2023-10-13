@@ -18,33 +18,35 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential debhelper devscripts fakeroot bash
+          pwd
+          cd /workspaces/postgres-mirror
 
       - name: Build PostgreSQL
         run: |
           pwd
-          cd postgres-mirror
+          cd /workspaces/postgres-mirror
           pwd
           ./configure
           make
-        working-directory: /github/workspaces/postgres-mirror
+        working-directory: /workspaces/postgres-mirror
 
       - name: Generate Debian Packages
         run: |
           pwd
-          cd postgres-mirror
+          cd /workspaces/postgres-mirror
           pwd
           dpkg-buildpackage -b -us -uc
-        working-directory: /github/workspaces/postgres-mirror
+        working-directory: /workspaces/postgres-mirror
 
       - name: Move Deb Packages
         run: |
           pwd
           ls
-          mv ../*.deb /workspace/deb-packages
-        working-directory: /github/workspaces/postgres-mirror
+          mv ../*.deb /workspaces/deb-packages
+        working-directory: /workspaces/postgres-mirror
 
       - name: Upload Deb Packages
         uses: actions/upload-artifact@v2
         with:
           name: deb-packages
-          path: /github/workspaces/deb-packages
+          path: /workspaces/deb-packages
