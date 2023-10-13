@@ -28,23 +28,11 @@ jobs:
           make
         working-directory: /home/runner/work/postgres-mirror/postgres-mirror
 
-      - name: Generate Debian Packages
-        run: |
-          pwd
-          cd /home/runner/work/postgres-mirror/postgres-mirror
-          pwd
-          dpkg-buildpackage -b -us -uc
-        working-directory: /home/runner/work/postgres-mirror/postgres-mirror
-
-      - name: Move Deb Packages
+      - name: initdb and start the postgresql server
         run: |
           pwd
           ls
-          mv ../*.deb /home/runner/work/postgres-mirror/postgres-mirror/deb-packages
-        working-directory: /home/runner/work/postgres-mirror/postgres-mirror
+          cd /home/runner/work/postgres-mirror/postgres-mirror
+          pwd        working-directory: /home/runner/work/postgres-mirror/postgres-mirror
 
-      - name: Upload Deb Packages
-        uses: actions/upload-artifact@v2
-        with:
-          name: deb-packages
-          path: /home/runner/work/postgres-mirror/postgres-mirror/deb-packages
+    
