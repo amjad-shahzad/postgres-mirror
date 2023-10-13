@@ -21,19 +21,25 @@ jobs:
 
       - name: Build PostgreSQL
         run: |
+          pwd
           cd postgres-mirror
+          pwd
           ./configure
           make
-        working-directory: /workspaces
+        working-directory: /workspaces/postgres-mirror
 
       - name: Generate Debian Packages
         run: |
+          pwd
           cd postgres-mirror
+          pwd
           dpkg-buildpackage -b -us -uc
-        working-directory: /workspaces
+        working-directory: workspaces/postgres-mirror
 
       - name: Move Deb Packages
         run: |
+          pwd
+          ls
           mv ../*.deb /workspace/deb-packages
         working-directory: /workspaces/postgres-mirror
 
