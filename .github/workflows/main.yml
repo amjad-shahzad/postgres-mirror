@@ -24,21 +24,21 @@ jobs:
           cd postgres-mirror
           ./configure
           make
-        working-directory: /github/workspace
+        working-directory: /github/workspaces
 
       - name: Generate Debian Packages
         run: |
           cd postgres-mirror
           dpkg-buildpackage -b -us -uc
-        working-directory: /github/workspace
+        working-directory: /github/workspaces
 
       - name: Move Deb Packages
         run: |
           mv ../*.deb /github/workspace/deb-packages
-        working-directory: /github/workspace/postgres-mirror
+        working-directory: /github/workspaces/postgres-mirror
 
       - name: Upload Deb Packages
         uses: actions/upload-artifact@v2
         with:
           name: deb-packages
-          path: /github/workspace/deb-packages
+          path: /github/workspaces/deb-packages
